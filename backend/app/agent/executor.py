@@ -1,7 +1,7 @@
 from langchain_openai import ChatOpenAI
 from deepagents import create_deep_agent
 from app.utils.config import Config
-from app.agent.tools import internet_search
+from app.agent.tools import internet_search, create_time_block, create_memo, start_timer
 
 def create_research_agent():
     model = ChatOpenAI(
@@ -13,7 +13,7 @@ def create_research_agent():
     )
     agent = create_deep_agent(
         model=model,
-        tools=[internet_search],
+        tools=[internet_search, create_time_block, create_memo, start_timer],
         system_prompt="你是一位专业的研究员，可以使用 internet_search 工具搜索互联网信息。"
     )
     return agent

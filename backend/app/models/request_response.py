@@ -9,3 +9,5 @@ class ResearchResponse(BaseModel):
     status: str          # 比如 "success" 或 "error"
     data: str            # Agent 生成的最终回答内容
     duration_seconds: float  # 处理耗时
+
+

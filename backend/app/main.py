@@ -2,7 +2,7 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 # 导入刚才写的“点餐路由”
-from app.api import research
+from app.api import research, timeline_api
 
 # FastAPI 
 app = FastAPI(
@@ -24,6 +24,7 @@ app.add_middleware(
 
 # ---------- 注册路由（把服务员招聘进来）----------
 app.include_router(research.router)
+app.include_router(timeline_api.router)
 
 # ---------- 写一个根目录问候语（方便测试）----------
 @app.get("/")
