@@ -1,6 +1,8 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
 
+import TimeLineView from './components/TimeLineView';
+
 const API_URL = 'http://127.0.0.1:8000/api/v1/research';
 const STREAM_URL = 'http://127.0.0.1:8000/api/v1/research/stream';
 
@@ -11,6 +13,7 @@ const SUGGESTIONS = [
 ];
 
 function App() {
+  const [refreshTrigger, setRefreshTrigger] = useState(0);
   const [query, setQuery] = useState('');
   const [messages, setMessages] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
@@ -71,6 +74,7 @@ function App() {
         });
         setIsLoading(false);
       }
+      setRefreshTrigger(prev => prev + 1)
     }, 30); // 每30ms增加一个词，可调节
   } catch (error) {
     console.error('请求失败:', error);
@@ -104,11 +108,8 @@ function App() {
           <div className="w-8 h-8 bg-blue-600 rounded-lg flex items-center justify-center text-white font-bold text-sm">AI</div>
           <span className="font-semibold text-gray-800">研究助手</span>
         </div>
-        <div className="text-xs text-gray-400 font-medium uppercase tracking-wider mb-2">历史记录</div>
-        <div className="flex-1">
-          <div className="p-3 rounded-lg bg-gray-100 text-gray-600 text-sm mb-1 cursor-pointer hover:bg-gray-200 transition">🌐 LangGraph 是什么</div>
-          <div className="p-3 rounded-lg hover:bg-gray-100 text-gray-600 text-sm mb-1 cursor-pointer transition">📊 AI Agent 落地场景</div>
-          <div className="p-3 rounded-lg hover:bg-gray-100 text-gray-600 text-sm mb-1 cursor-pointer transition">🔍 搜索 API 对比</div>
+        <div className="flex-1 overflow-y-auto">
+         <TimeLineView refreshTrigger={refreshTrigger} />
         </div>
         <div className="text-xs text-gray-400 border-t border-gray-200 pt-3">
           深度研究 · v1.0
