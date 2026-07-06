@@ -37,6 +37,7 @@ function TimeLineView({ refreshTrigger = 0 }) {
           </div>
           {block.description && <div className="text-sm text-gray-600">{block.description}</div>}
         </div>
+        
       ))}
       {memos.map(memo => (
         <div key={memo.id} className="bg-yellow-50 border-l-4 border-yellow-400 p-3 rounded-r-lg">
