@@ -13,6 +13,12 @@ load_dotenv(dotenv_path=ENV_PATH, override=True)
 class Config:
     """统一管理所有环境变量，缺失时立即报错"""
     
+    #读取邮箱配置
+    MAIL_HOST = os.getenv("MAIL_HOST")
+    MAIL_PORT = int(os.getenv("MAIL_PORT", 587))
+    MAIL_USERNAME = os.getenv("MAIL_USERNAME")
+    MAIL_PASSWORD = os.getenv("MAIL_PASSWORD")
+    
     # 硅基流动（必需）
     SILICON_API_KEY = os.getenv("SILICONFLOW_API_KEY")
     MODEL_NAME = os.getenv("MODEL_NAME", "deepseek-ai/DeepSeek-V4-Pro")

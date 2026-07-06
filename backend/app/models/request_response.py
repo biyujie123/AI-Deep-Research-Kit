@@ -1,8 +1,11 @@
 from pydantic import BaseModel
+from typing import List, Dict
+
 
 # 这个类定义了前端
 class ResearchRequest(BaseModel):
     query: str  # 问题
+    history: List[Dict[str, str]] = []  # 新增
 
 # 这个类定义了后端
 class ResearchResponse(BaseModel):

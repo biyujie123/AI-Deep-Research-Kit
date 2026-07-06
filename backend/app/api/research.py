@@ -3,10 +3,15 @@ from fastapi import APIRouter, HTTPException
 from app.models.request_response import ResearchRequest, ResearchResponse
 from app.agent.executor import research_agent  # 导入真脑子
 
+
+
 router = APIRouter(prefix="/api/v1", tags=["Research"])
 
 @router.post("/research", response_model=ResearchResponse)
 async def perform_research(request: ResearchRequest):
+    # 构建完整消息列表
+    messages = request.history + [{"role": "user", "content": request.query}]
+    result = research_agent.invoke({"messages": messages})
     try:
         start_time = time.time()
         print(f"🛎️ 收到用户请求：{request.query}")

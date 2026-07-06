@@ -1,8 +1,10 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from app.models import user
+from app.api import timeblock_api
 
 # 导入刚才写的“点餐路由”
-from app.api import research, timeline_api
+from app.api import research, timeline_api, timer_api,auth
 
 # FastAPI 
 app = FastAPI(
@@ -25,6 +27,9 @@ app.add_middleware(
 # ---------- 注册路由（把服务员招聘进来）----------
 app.include_router(research.router)
 app.include_router(timeline_api.router)
+app.include_router(timer_api.router)
+app.include_router(auth.router)  
+app.include_router(timeblock_api.router)
 
 # ---------- 写一个根目录问候语（方便测试）----------
 @app.get("/")
